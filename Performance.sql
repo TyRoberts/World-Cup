@@ -1,5 +1,5 @@
 SELECT
-	team,
+	tea,
 	ROUND(AVG(team_goals),2) AS goals_per_game
 FROM
 	fifa
