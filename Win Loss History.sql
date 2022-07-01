@@ -1,4 +1,4 @@
-/* Winners and losers must be queried seperately because selecting them with a single query causes their counts to return NULL. 
+/* Winners and losers are queried seperately because selecting them with a single query causes their counts to return NULL. 
 This not only leads to the results being visually unapealling but also causes issues with the running total.*/
 WITH winners AS (SELECT
 			   	DISTINCT ON(game_id) game_id,
