@@ -61,12 +61,11 @@ WITH winners AS (SELECT
 			  	team)
 				
 SELECT
-	wins.year,
-	wins.team,
-	SUM(wins.num - losses.num) OVER(PARTITION BY wins.team ORDER BY wins.year) AS overall,
-	SUM(wins.num) OVER(PARTITION BY wins.team ORDER BY wins.year) AS wins,
-	SUM(losses.num) OVER(PARTITION BY losses.team ORDER BY losses.year) AS losses,
-	SUM(games.played - (wins.num + losses.num)) OVER(PARTITION BY games.team ORDER BY games.year) AS draws
+	wins.year AS "Year",
+	SUM(wins.num) OVER(PARTITION BY wins.team ORDER BY wins.year) AS "Wins",
+	SUM(losses.num) OVER(PARTITION BY losses.team ORDER BY losses.year) AS "Losses",
+	SUM(games.played - (wins.num + losses.num)) OVER(PARTITION BY games.team ORDER BY games.year) AS "Draws",
+	SUM(wins.num - losses.num) OVER(PARTITION BY wins.team ORDER BY wins.year) AS "Overall"
 FROM 
 	wins
 INNER JOIN
@@ -81,6 +80,8 @@ LEFT JOIN
 	losses.team = games.team
 	AND
 	losses.year = games.year
+/* Team Filter
+WHERE 
+	wins.team = 'Argentina'*/
 ORDER BY 
-	wins.year,
-	wins.team;
+	wins.year;

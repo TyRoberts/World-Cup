@@ -1,8 +1,10 @@
 SELECT
-	CASE WHEN winner IS NULL THEN 'All' 
-	ELSE winner END AS team, 
-	COUNT(winner) AS times_won, 
-	COUNT(winner)*100/(SELECT COUNT("year") FROM wc_results) || '%' AS percent_of_wc
-FROM wc_results
-GROUP BY ROLLUP(winner)
-ORDER BY times_won DESC;
+	winner AS "Team", 
+	COUNT(winner) AS "Times Won", 
+	COUNT(winner)*100/(SELECT COUNT("year") FROM wc_results) || '%' AS "Percent of World Cups"
+FROM 
+	wc_results
+GROUP BY 
+	winner
+ORDER BY 
+	"Times Won" DESC;
